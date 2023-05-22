@@ -1,0 +1,37 @@
+server:
+  port: 8082
+
+spring:
+  thymeleaf:
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+    prefix: classpath:/templates/
+  security:
+    oauth2:
+      client:
+        registration:
+          admin:
+            client-id: admin
+            client-secret: 123123
+            client-name: admin
+            scope:
+              - read
+              - write
+              - openid
+            authorization-grant-type: authorization_code
+            client-authentication-method: client_secret_basic
+            provider: admin
+            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}'
+        provider:
+          admin:
+            issuer-uri: http://authorization:8080
+            # 请求授权码地址
+            authorization-uri: http://authorization:8080/oauth2/authorize
+            # 请求token地址
+            token-uri: http://authorization:8080/oauth2/token
+            # 请求用户资源地址
+            user-info-uri: http://authorization:8080/userinfo
+            user-name-attribute: sub
+            user-info-authentication-method: GET
+

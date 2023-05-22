@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.yueue.top:3306/oauth2?serverTimezone=GMT
+    username: root
+    password: root_001
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    suffix: .html
+    prefix: classpath:/public/
+  # 指定用户名和密码
+  security:
+    response: JSON
+    #    user:
+    #      name: admin
+    #      password: admin
+  main:
+    allow-circular-references: true
+
+
+mybatis-plus:
+  type-aliases-package: com.yue.oauth.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: is_del
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+
+# 配置哪些请求直接通行 白名单过滤whitelist.ignore.url
+ignore:
+  url:
+    - /login.html
+    - /login
+    - /invalidSession.html
+    - /code
+    - /smsCode
+    - /smslogin.html
+    - /authentication
+    - /refreshToken
+
+jwt:
+  header: JWTYUEUEHEADER
+  secret: aabbccdd
+  expire_time: 3600000
